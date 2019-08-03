@@ -1,28 +1,19 @@
 package com.example.contact;
 
+import com.example.contact.controller.ContactController;
+import com.example.contact.view.ContactView;
+
 public class ContactApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
 
-        // For loop, iterate through args array
-        for (int i = 0; i <args.length; i++) {
-            System.out.println("For loop: Arg " + (i + 1) + " is " + args[i]);
-        }
+        ContactController contactController = new ContactController();
+        ContactView contactView = new ContactView(contactController);
 
-        System.out.println("\n");
+//        contactView.displayContact();
 
-        //While loop, iterate through args array
-        int counter = 0;
-        while (counter < args.length) {
-            System.out.println("While loop: Arg " + (counter + 1) + " is " + args[counter]);
-            counter++;
-        }
+        contactView.compareContacts();
 
-        //Improved for loop
-        for (String arg : args) {
-            System.out.println("Improved for loop: " + arg);
-        }
     }
 
 
