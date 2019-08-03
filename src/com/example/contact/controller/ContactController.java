@@ -8,4 +8,13 @@ public class ContactController {
         return new Contact("John", 23);
     }
 
+    public boolean equateContacts(Contact contact1, Contact contact2) {
+        if (contact1.equals(contact2)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

@@ -10,11 +10,10 @@ public class ContactApp {
         ContactController contactController = new ContactController();
         ContactView contactView = new ContactView(contactController);
 
-//        contactView.displayContact();
+        contactView.options();
 
-        contactView.compareContacts();
+
 
     }
-
 
 }
