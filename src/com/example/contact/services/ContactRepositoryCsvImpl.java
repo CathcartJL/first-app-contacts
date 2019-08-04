@@ -4,6 +4,7 @@ import com.example.contact.constants.AppConstants;
 import com.example.contact.model.Contact;
 
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +22,9 @@ public class ContactRepositoryCsvImpl implements ContactRepositoryI {
     }
 
 
+
     @Override
     public void save(Contact contact) {
-
         try (BufferedWriter buffWrite =
                      new BufferedWriter(new FileWriter(AppConstants.CSV_FILE_PATH, true))
         ) {
@@ -34,6 +35,24 @@ public class ContactRepositoryCsvImpl implements ContactRepositoryI {
         } catch (IOException ioe) {
             System.err.println("Error: " + ioe);
         }
+    }
+
+    @Override
+    public void saveAll(List<Contact> contactList) {
+        this.saveAll(contactList, true);
+    }
+
+    public void saveAll(List<Contact> contactList, boolean append) {
+        if (!append) {
+            new File(AppConstants.CSV_FILE_PATH).delete();
+        }
+
+        for (Contact contact : contactList) {
+            save(contact);
+        }
+
+        System.out.println("Saved " + contactList.size() + " contacts.");
+
     }
 
     @Override
@@ -62,6 +81,23 @@ public class ContactRepositoryCsvImpl implements ContactRepositoryI {
         }
 
         return contactList;
+    }
+
+    @Override
+    public void delete(Contact contact) {
+
+        List<Contact> contactList = getAllContacts();
+
+        for (int i = 0; i < contactList.size(); i++) {
+            if (contactList.get(i).equals(contact)) {
+                contactList.remove(i);
+
+            }
+        }
+
+        saveAll(contactList, false);
+
+        System.out.println("Deleted contact: " + contact);
 
     }
 }

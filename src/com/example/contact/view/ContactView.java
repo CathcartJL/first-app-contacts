@@ -59,11 +59,38 @@ public class ContactView {
 
     public void showAllContacts() {
         List<Contact> contactList = contactController.getAllContacts();
+         displayContactsTable(contactList);
+    }
 
-        System.out.println();
-        for (Contact contact : contactList) {
-            System.out.println(contact);
+    private void displayContactsTable(List<Contact> contactList) {
+        String dataPattern = "| %6d | %-30s | %4d |";
+        String titlePattern = "| %-6s | %-30s | %-4s |";
+
+        System.out.println("+------------------------------------------------+");
+        System.out.println("| Contacts                                       |");
+        System.out.println("+------------------------------------------------+");
+        System.out.println(String.format(titlePattern, "Index", "Name", "Age"));
+
+
+        for (int i = 0; i <contactList.size(); i++) {
+            System.out.println(
+                String.format(dataPattern,
+                        i,
+                        contactList.get(i).getName(),
+                        contactList.get(i).getAge())
+        );
         }
+        System.out.println("+------------------------------------------------+");
+    }
+
+    public void deleteContact() {
+        System.out.println("Enter contact name: ");
+        String name = scan.nextLine();
+
+        System.out.println("Enter contact age: ");
+        Integer age = scan.nextInt();
+        scan.nextLine();
+        contactController.deleteContact(new Contact(name, age));
     }
 
     public void options() {
@@ -78,6 +105,7 @@ public class ContactView {
             System.out.println("all - Show all contacts");
             System.out.println("cmp - Compares contacts");
             System.out.println("new - Creates new contact");
+            System.out.println("del - Delete contact");
             System.out.print("> ");
 
             response = scan.nextLine().trim();
@@ -94,6 +122,9 @@ public class ContactView {
                     break;
                 case "all":
                     showAllContacts();
+                    break;
+                case "del":
+                    deleteContact();
                     break;
                 default:
                     System.out.println("Invalid input!");
