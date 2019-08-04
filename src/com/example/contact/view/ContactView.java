@@ -3,6 +3,7 @@ package com.example.contact.view;
 import com.example.contact.controller.ContactController;
 import com.example.contact.model.Contact;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ContactView {
@@ -45,6 +46,26 @@ public class ContactView {
         }
     }
 
+    public void createContact() {
+        System.out.println("Enter contact name: ");
+        String name = scan.nextLine();
+
+        System.out.println("Enter contact age: ");
+        Integer age = scan.nextInt();
+        scan.nextLine();
+
+        contactController.saveContact(new Contact(name, age));
+    }
+
+    public void showAllContacts() {
+        List<Contact> contactList = contactController.getAllContacts();
+
+        System.out.println();
+        for (Contact contact : contactList) {
+            System.out.println(contact);
+        }
+    }
+
     public void options() {
         //Sentry variable
         String response = "";
@@ -53,19 +74,29 @@ public class ContactView {
             System.out.println("\n\nEnter a command or q to quit");
             System.out.println("--------------------------------");
             System.out.println("Options");
-            System.out.println("display - Displays contact");
-            System.out.println("compare - Compares contacts");
+            System.out.println("dis - Displays contact");
+            System.out.println("all - Show all contacts");
+            System.out.println("cmp - Compares contacts");
+            System.out.println("new - Creates new contact");
             System.out.print("> ");
 
-            response = scan.nextLine();
+            response = scan.nextLine().trim();
 
             switch (response) {
-                case "display":
+                case "dis":
                     displayContact();
                     break;
-                case "compare":
+                case "cmp":
                     compareContacts();
                     break;
+                case "new":
+                    createContact();
+                    break;
+                case "all":
+                    showAllContacts();
+                    break;
+                default:
+                    System.out.println("Invalid input!");
             }
 
 
