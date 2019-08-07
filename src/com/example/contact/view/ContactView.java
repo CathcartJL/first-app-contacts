@@ -84,13 +84,29 @@ public class ContactView {
     }
 
     public void deleteContact() {
+
+        List<Contact> contactList = contactController.getAllContacts();
+        displayContactsTable(contactList);
+
+        System.out.println();
+        System.out.println("Enter the index of the contact you wish to delete:");
+        System.out.print("> ");
+
+
+        Integer contactIndex = scan.nextInt();
+        scan.nextLine();
+
+        contactController.deleteContact(contactIndex);
+    }
+
+    public void deleteAllContactsById() {
         System.out.println("Enter contact name: ");
         String name = scan.nextLine();
 
         System.out.println("Enter contact age: ");
         Integer age = scan.nextInt();
         scan.nextLine();
-        contactController.deleteContact(new Contact(name, age));
+        //contactController.deleteContact(new Contact(name, age));
     }
 
     public void options() {

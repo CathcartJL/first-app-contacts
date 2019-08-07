@@ -38,8 +38,8 @@ public class ContactController {
 
     }
 
-    public void deleteContact(Contact contact) {
-        contactRepository.delete(contact);
+    public void deleteContact(Integer contactIndex) {
+        contactRepository.delete(contactIndex);
     }
 
 }

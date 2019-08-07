@@ -84,20 +84,15 @@ public class ContactRepositoryCsvImpl implements ContactRepositoryI {
     }
 
     @Override
-    public void delete(Contact contact) {
+    public void delete(Integer contactIndex) {
 
         List<Contact> contactList = getAllContacts();
 
-        for (int i = 0; i < contactList.size(); i++) {
-            if (contactList.get(i).equals(contact)) {
-                contactList.remove(i);
-
-            }
-        }
+        contactList.remove(contactIndex.intValue());
 
         saveAll(contactList, false);
 
-        System.out.println("Deleted contact: " + contact);
+        System.out.println("Deleted contact: " + contactIndex);
 
     }
 }
